@@ -1,5 +1,5 @@
-import { CaseReducer } from '@reduxjs/toolkit';
-import { uniqueId } from 'lodash';
+import { CaseReducer, PayloadAction } from '@reduxjs/toolkit';
+import { filter, uniqueId } from 'lodash';
 import { FIELD_TYPES } from '../../../Utility';
 
 const addNewCategory: CaseReducer<ICategory[]> = state => {
@@ -17,4 +17,7 @@ const addNewCategory: CaseReducer<ICategory[]> = state => {
   });
 };
 
-export { addNewCategory };
+const removeCategory: CaseReducer<ICategory[], PayloadAction<string>> = (state, { payload }) =>
+  filter(state, category => category.categoryId !== payload);
+
+export { addNewCategory, removeCategory };

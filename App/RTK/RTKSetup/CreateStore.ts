@@ -30,3 +30,5 @@ function CreateStore() {
 export default CreateStore;
 export type IStore = ReturnType<typeof CreateStore>;
 export type IAppDispatch = IStore['reduxStore']['dispatch'];
+export type IRootReducerRTK = typeof RootReducers;
+export type IRootReduxStateRTK = ReturnType<typeof RootReducers>;

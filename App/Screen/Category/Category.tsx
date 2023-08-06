@@ -7,11 +7,12 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { CategoryBox } from '../../Component';
 import { FIELD_TYPES } from '../../Utility';
 import { styles } from './styles';
-import { useAppDispatch } from '../../Hooks';
+import { useAppDispatch, useAppSelector } from '../../Hooks';
 import { CategorySliceAction } from '../../RTK';
 
 function Category() {
   const dispatch = useAppDispatch();
+  const categoryArray1 = useAppSelector(state => state.CategorySlice);
   const [categoryArray, setCategoryArray] = useState<ICategory[]>([
     {
       categoryId: uniqueId('category_'),
@@ -115,6 +116,7 @@ function Category() {
 
   const removeCategory = useCallback(
     (id: string) => () => {
+      dispatch(CategorySliceAction.removeCategory(id));
       setCategoryArray(prev => filter(prev, category => category.categoryId !== id));
     },
     [],
@@ -165,7 +167,7 @@ function Category() {
         style={[styles.flexGrow]}
         numColumns={isTablet() ? 2 : 1}
         contentContainerStyle={[styles.flexGrow, styles.boxContainer]}
-        data={categoryArray}
+        data={categoryArray1}
         keyExtractor={keyExtracted}
         renderItem={renderItem}
       />
