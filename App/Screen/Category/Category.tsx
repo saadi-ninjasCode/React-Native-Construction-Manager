@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback } from 'react';
 import { FlatList, ListRenderItemInfo } from 'react-native';
 import { isTablet } from 'react-native-device-info';
