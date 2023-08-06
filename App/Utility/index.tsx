@@ -1,3 +1,4 @@
 import Config from './Config';
+import { FIELD_TYPES } from './Constant';
 
-export {Config};
+export { FIELD_TYPES, Config };
