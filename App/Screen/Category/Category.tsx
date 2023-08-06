@@ -13,131 +13,36 @@ import { CategorySliceAction } from '../../RTK';
 function Category() {
   const dispatch = useAppDispatch();
   const categoryArray1 = useAppSelector(state => state.CategorySlice);
-  // const [categoryArray, setCategoryArray] = useState<ICategory[]>([
-  //   {
-  //     categoryId: uniqueId('category_'),
-  //     categoryName: '',
-  //     titleField: '-',
-  //     fieldsArray: [
-  //       {
-  //         fieldId: '1',
-  //         fieldType: FIELD_TYPES.TEXT,
-  //         fieldValue: '',
-  //       },
-  //     ],
-  //   },
-  // ]);
 
   const setCategoryTitleField = useCallback((categoryId: string, fieldName: string) => {
     dispatch(CategorySliceAction.setCategoryTitleField({ categoryId, fieldName }));
-    // setCategoryArray(prev => {
-    //   const newArr: ICategory[] = [];
-    //   forEach(prev, categoryObj => {
-    //     if (categoryObj.categoryId === categoryId) {
-    //       categoryObj.titleField = fieldName;
-    //     }
-    //     newArr.push(categoryObj);
-    //   });
-    //   return newArr;
-    // });
   }, []);
 
   const addCategoryField = useCallback((categoryId: string, fieldType: FIELD_TYPES) => {
     dispatch(CategorySliceAction.addCategoryField({ categoryId, fieldType }));
-    // setCategoryArray(prev => {
-    //   const newArr: ICategory[] = [];
-    //   forEach(prev, categoryObj => {
-    //     if (categoryObj.categoryId === categoryId) {
-    //       categoryObj.fieldsArray = [
-    //         ...categoryObj.fieldsArray,
-    //         {
-    //           fieldId: uniqueId(`${categoryId}_field_`),
-    //           fieldType: fieldType,
-    //           fieldValue: '',
-    //         },
-    //       ];
-    //     }
-    //     newArr.push(categoryObj);
-    //   });
-    //   return newArr;
-    // });
   }, []);
 
   const updateCategoryFieldValue = useCallback((categoryId: string, fieldId: string, value: string) => {
     dispatch(CategorySliceAction.updateCategoryFieldValue({ categoryId, fieldId, value }));
-    // setCategoryArray(prev => {
-    //   const newArr: ICategory[] = [];
-    //   forEach(prev, categoryObj => {
-    //     if (categoryObj.categoryId === categoryId) {
-    //       const newFieldArr: IField[] = [];
-    //       forEach(categoryObj?.fieldsArray, fieldObj => {
-    //         console.tron.warn?.({ fieldId });
-    //         if (fieldObj.fieldId === fieldId) {
-    //           fieldObj.fieldValue = value;
-    //         }
-    //         newFieldArr.push(fieldObj);
-    //       });
-    //       categoryObj.fieldsArray = newFieldArr;
-    //     }
-    //     newArr.push(categoryObj);
-    //   });
-    //   return newArr;
-    // });
   }, []);
 
   const removeCategoryField = useCallback((categoryId: string, fieldId: string) => {
     dispatch(CategorySliceAction.removeCategoryField({ categoryId, fieldId }));
-    // setCategoryArray(prev => {
-    //   const newArr: ICategory[] = [];
-    //   forEach(prev, categoryObj => {
-    //     if (categoryObj.categoryId === categoryId) {
-    //       categoryObj.fieldsArray = filter(categoryObj.fieldsArray, field => field.fieldId !== fieldId);
-    //     }
-    //     newArr.push(categoryObj);
-    //   });
-    //   return newArr;
-    // });
   }, []);
 
   const addNewCategory = useCallback(() => {
     dispatch(CategorySliceAction.addNewCategory());
-    // setCategoryArray(prev => [
-    //   ...prev,
-    //   {
-    //     categoryId: uniqueId('category_'),
-    //     categoryName: '',
-    //     titleField: '-',
-    //     fieldsArray: [
-    //       {
-    //         fieldId: uniqueId('field_'),
-    //         fieldType: FIELD_TYPES.TEXT,
-    //         fieldValue: '',
-    //       },
-    //     ],
-    //   },
-    // ]);
   }, []);
 
   const removeCategory = useCallback(
     (id: string) => () => {
       dispatch(CategorySliceAction.removeCategory(id));
-      // setCategoryArray(prev => filter(prev, category => category.categoryId !== id));
     },
     [],
   );
 
   const updateCategoryName = useCallback((id: string, categoryName: string) => {
     dispatch(CategorySliceAction.updateCategoryName({ categoryId: id, categoryName }));
-    // setCategoryArray(prev => {
-    //   const newArr: ICategory[] = [];
-    //   forEach(prev, categoryObj => {
-    //     if (categoryObj.categoryId === id) {
-    //       categoryObj.categoryName = categoryName;
-    //     }
-    //     newArr.push(categoryObj);
-    //   });
-    //   return newArr;
-    // });
   }, []);
 
   const keyExtracted = useCallback((item: ICategory) => item.categoryId, []);
