@@ -40,8 +40,6 @@ function Dropdown({
     );
   }, [addFieldView, optionArray, selectedValue]);
 
-  console.tron.warn?.({ optionArray });
-
   const dropdownList = useMemo(() => {
     if (optionArray) {
       return map(optionArray, option => {

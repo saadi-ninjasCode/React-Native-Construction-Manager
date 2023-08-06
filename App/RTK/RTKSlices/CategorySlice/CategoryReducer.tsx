@@ -86,7 +86,6 @@ const updateCategoryFieldValue: CaseReducer<
       categoryObj.fieldsArray = newFieldArr;
     }
     newArr.push(categoryObj);
-    console.tron.warn?.({ categoryObj });
   });
   state = newArr;
 };

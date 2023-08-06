@@ -14,9 +14,12 @@ interface IDropdown {
   }[];
 }
 
-interface ICategory {
+interface ICategoryObj {
   categoryId: string;
   categoryName: string;
+}
+
+interface ICategory extends ICategoryObj {
   titleField: string;
   fieldsArray: IField[];
 }
