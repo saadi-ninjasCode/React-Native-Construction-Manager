@@ -1,17 +1,27 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
+import {
+  addCategoryField,
+  addNewCategory,
+  removeCategory,
+  removeCategoryField,
+  setCategoryTitleField,
+  updateCategoryFieldValue,
+  updateCategoryName,
+} from './CategoryReducer';
 import { CategoryStore } from './CategoryStore';
-import { filter, uniqueId } from 'lodash';
-import { FIELD_TYPES } from '../../../Utility';
-import { addNewCategory, removeCategory } from './CategoryReducer';
 
 const CategorySlice = createSlice({
   name: 'CategorySlice',
   initialState: CategoryStore,
   reducers: {
     addNewCategory,
+    updateCategoryName,
     removeCategory,
+    setCategoryTitleField,
+    addCategoryField,
+    updateCategoryFieldValue,
+    removeCategoryField,
   },
-  extraReducers: builder => {},
 });
 
 export default CategorySlice.actions;
