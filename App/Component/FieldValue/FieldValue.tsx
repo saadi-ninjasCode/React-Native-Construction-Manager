@@ -5,11 +5,6 @@ import { Alignment } from '../../Theme';
 import { Dropdown } from '../Dropdown';
 import { styles } from './styles';
 
-interface IFieldValue extends IField {
-  removeField: Function;
-  updateValue: Function;
-}
-
 function FieldValue({ fieldId, fieldType, fieldValue, removeField, updateValue }: IFieldValue) {
   return (
     <View style={[styles.row, Alignment.MTxSmall]}>

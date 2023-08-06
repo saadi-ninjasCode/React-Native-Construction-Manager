@@ -24,6 +24,11 @@ interface ICategory extends ICategoryObj {
   fieldsArray: IField[];
 }
 
+interface IFieldValue extends IField {
+  removeField: Function;
+  updateValue: Function;
+}
+
 interface ICategoryBox extends ICategory {}
 
 interface ICategorySectionList extends Omit<ICategory, 'fieldsArray'> {
@@ -32,12 +37,17 @@ interface ICategorySectionList extends Omit<ICategory, 'fieldsArray'> {
 
 interface IInputField extends Pick<IField, 'fieldId'> {
   inputId: string;
+  inputType: string;
   inputTitle: string;
   inputValue: string;
 }
 
+interface IInputValue extends IInputField {
+  updateValue: Function;
+}
 interface IMachineItem extends Omit<ICategoryObj, 'fieldsArray'> {
   itemId: string;
+
   itemArray: IInputField[];
 }
 
