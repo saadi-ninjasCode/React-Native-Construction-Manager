@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { find, map } from 'lodash';
 import React, { useCallback, useMemo } from 'react';
 import { Button, Card, TextInput, useTheme } from 'react-native-paper';
@@ -5,53 +6,49 @@ import { FIELD_TYPES } from '../../Utility';
 import { Dropdown } from '../Dropdown';
 import { FieldValue } from '../FieldValue';
 import { styles } from './styles';
+import { useAppDispatch } from '../../Hooks';
+import { CategorySliceAction } from '../../RTK';
 
-function CategoryBox({
-  categoryId,
-  categoryName,
-  titleField,
-  fieldsArray,
-  removeCategory,
-  addCategoryField,
-  updateCategoryName,
-  removeCategoryField,
-  setCategoryTitleField,
-  updateCategoryFieldValue,
-}: ICategoryBox) {
+function CategoryBox({ categoryId, categoryName, titleField, fieldsArray }: ICategoryBox) {
+  const dispatch = useAppDispatch();
   const { colors } = useTheme();
 
   const addNewField = useCallback(
     (fieldType: FIELD_TYPES) => {
-      addCategoryField(categoryId, fieldType);
+      dispatch(CategorySliceAction.addCategoryField({ categoryId, fieldType }));
     },
-    [addCategoryField, categoryId],
+    [categoryId],
   );
   const setCategoryTitle = useCallback(
     (fieldName: string) => {
-      setCategoryTitleField(categoryId, fieldName);
+      dispatch(CategorySliceAction.setCategoryTitleField({ categoryId, fieldName }));
     },
-    [categoryId, setCategoryTitleField],
+    [categoryId],
   );
 
   const removeField = useCallback(
-    (id: string) => () => {
-      removeCategoryField(categoryId, id);
+    (fieldId: string) => () => {
+      dispatch(CategorySliceAction.removeCategoryField({ categoryId, fieldId }));
     },
-    [categoryId, removeCategoryField],
+    [categoryId],
   );
 
   const updateValue = useCallback(
     (fieldId: string) => (value: string) => {
-      updateCategoryFieldValue(categoryId, fieldId, value);
+      dispatch(CategorySliceAction.updateCategoryFieldValue({ categoryId, fieldId, value }));
     },
-    [categoryId, updateCategoryFieldValue],
+    [categoryId],
   );
 
+  const removeCategory = useCallback(() => {
+    dispatch(CategorySliceAction.removeCategory(categoryId));
+  }, [categoryId]);
+
   const updateCategoryTitle = useCallback(
-    (value: string) => {
-      updateCategoryName(categoryId, value);
+    (categoryName: string) => {
+      dispatch(CategorySliceAction.updateCategoryName({ categoryId, categoryName }));
     },
-    [categoryId, updateCategoryName],
+    [categoryId],
   );
 
   const boxArray = useMemo(
@@ -92,7 +89,7 @@ function CategoryBox({
           mode="text"
           textColor={colors.error}
           style={styles.addFieldButton}
-          onPress={removeCategory(categoryId)}>
+          onPress={removeCategory}>
           Remove
         </Button>
       </Card.Actions>

@@ -24,11 +24,4 @@ interface ICategory extends ICategoryObj {
   fieldsArray: IField[];
 }
 
-interface ICategoryBox extends ICategory {
-  addCategoryField: (categoryId: string, fieldType: FIELD_TYPES) => void;
-  removeCategory: (id: string) => () => void;
-  removeCategoryField: (categoryId: string, fieldId: string) => void;
-  updateCategoryName: (id: string, value: string) => void;
-  setCategoryTitleField: (categoryId: string, fieldName: string) => void;
-  updateCategoryFieldValue: (categoryId: string, fieldId: string, value: string) => void;
-}
+interface ICategoryBox extends ICategory {}
