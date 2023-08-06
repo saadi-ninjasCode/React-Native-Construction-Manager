@@ -1,16 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useCallback, useLayoutEffect, useMemo } from 'react';
-import { IMachineDrawerProp, IMachineRouteProp } from '../../Types/navigation';
-import { useAppDispatch, useAppSelector } from '../../Hooks';
-import { categoryDataSelector, machineItemList } from '../../Selectors';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Button, Text } from 'react-native-paper';
-import { styles } from './styles';
-import { FlatList, ListRenderItemInfo, View } from 'react-native';
+import { ListRenderItemInfo, View } from 'react-native';
 import { isTablet } from 'react-native-device-info';
+import { KeyboardAwareFlatList } from 'react-native-keyboard-aware-scroll-view';
+import { Button, Text } from 'react-native-paper';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { SubCategoryBox } from '../../Component';
+import { useAppDispatch, useAppSelector } from '../../Hooks';
 import { MachineItemSliceAction } from '../../RTK';
+import { categoryDataSelector, machineItemList } from '../../Selectors';
+import { IMachineDrawerProp, IMachineRouteProp } from '../../Types/navigation';
+import { styles } from './styles';
 
 function MachineItem() {
   const dispatch = useAppDispatch();
@@ -58,8 +59,8 @@ function MachineItem() {
   }, [categoryData?.fieldsArray, categoryId, categoryName, dispatch]);
 
   return (
-    <SafeAreaView style={styles.flex}>
-      <FlatList
+    <SafeAreaView edges={['bottom', 'left', 'right']} style={styles.flex}>
+      <KeyboardAwareFlatList
         data={itemList}
         style={[styles.flexGrow]}
         ListEmptyComponent={emptyView}

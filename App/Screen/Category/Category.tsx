@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback } from 'react';
-import { FlatList, ListRenderItemInfo } from 'react-native';
+import { ListRenderItemInfo } from 'react-native';
 import { isTablet } from 'react-native-device-info';
+import { KeyboardAwareFlatList } from 'react-native-keyboard-aware-scroll-view';
 import { Button } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { CategoryBox } from '../../Component';
@@ -24,7 +25,7 @@ function Category() {
 
   return (
     <SafeAreaView style={styles.flex}>
-      <FlatList
+      <KeyboardAwareFlatList
         style={[styles.flexGrow]}
         numColumns={isTablet() ? 2 : 1}
         contentContainerStyle={[styles.flexGrow, styles.boxContainer]}
