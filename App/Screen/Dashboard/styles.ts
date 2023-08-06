@@ -12,11 +12,9 @@ const styles = StyleSheet.create({
   },
   sectionHeader: {
     ...Alignment.PHxMedium,
-    // paddingLeft: 58,
-    // ...Alignment.PRxLarge,
   },
   sectionSeparator: {
-    padding: 5,
+    padding: 10,
   },
 });
 

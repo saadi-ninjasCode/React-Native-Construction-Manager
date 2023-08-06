@@ -9,11 +9,10 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   mainContainer: {
-    backgroundColor: 'blue',
     flexShrink: 1,
     minHeight: 283,
     ...Alignment.PLsmall,
-    ...Alignment.PVmedium,
+    ...Alignment.PVxSmall,
   },
 });
 

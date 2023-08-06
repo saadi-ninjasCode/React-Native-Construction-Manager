@@ -8,13 +8,14 @@ import { categoryDataSections } from '../../Selectors';
 import { styles } from './styles';
 
 function Dashboard() {
-  const abc = useAppSelector(categoryDataSections);
+  const categoryList = useAppSelector(categoryDataSections);
+
   const renderSectionHeader = useCallback(
-    ({ section: { categoryName } }: { section: SectionListData<IField, ICategorySectionList> }) => {
-      if (categoryName) {
+    ({ section: { title } }: { section: SectionListData<string, ICategorySectionList> }) => {
+      if (title) {
         return (
           <View style={styles.sectionHeader}>
-            <Text variant="titleLarge">{categoryName}</Text>
+            <Text variant="titleLarge">{title}</Text>
           </View>
         );
       }
@@ -23,20 +24,19 @@ function Dashboard() {
     [],
   );
 
-  const keyExtracted = useCallback((item: IField) => item.fieldId, []);
+  const keyExtracted = useCallback((item: string) => item, []);
   const SectionSeparatorComponent = useCallback(() => <View style={styles.sectionSeparator} />, []);
-  const renderItem = useCallback(
-    // ({ section: { data } }: SectionListRenderItemInfo<IField>) => <HorizontalList data={data} />,
-    ({ section: { data } }: SectionListRenderItemInfo<IField>) => null,
-    [],
-  );
+  const renderItem = useCallback(({ item }: SectionListRenderItemInfo<string>) => {
+    return <HorizontalList categoryId={item} />;
+  }, []);
 
   return (
     <SafeAreaView edges={['bottom', 'left', 'right']} style={styles.flex}>
       <SectionList
-        sections={abc}
+        sections={categoryList}
         contentContainerStyle={styles.contentContainer}
         renderItem={renderItem}
+        stickyHeaderHiddenOnScroll={true}
         SectionSeparatorComponent={SectionSeparatorComponent}
         renderSectionHeader={renderSectionHeader}
         keyExtractor={keyExtracted}

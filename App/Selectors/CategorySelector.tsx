@@ -11,9 +11,8 @@ const categoryDataSections = createDraftSafeSelector<ISelectorParamState<ICatego
   state => state.CategorySlice,
   CategorySlice =>
     map(CategorySlice, categoryObj => ({
-      ...categoryObj,
-      fieldsArray: [],
-      data: categoryObj.fieldsArray,
+      title: categoryObj?.categoryName,
+      data: [categoryObj?.categoryId],
     })),
   {
     memoizeOptions: {

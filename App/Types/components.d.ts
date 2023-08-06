@@ -31,8 +31,9 @@ interface IFieldValue extends IField {
 
 interface ICategoryBox extends ICategory {}
 
-interface ICategorySectionList extends Omit<ICategory, 'fieldsArray'> {
-  data: Readonly<IField[]>;
+interface ICategorySectionList {
+  title: string;
+  data: Readonly<string[]>;
 }
 
 interface IInputField extends Pick<IField, 'fieldId'> {

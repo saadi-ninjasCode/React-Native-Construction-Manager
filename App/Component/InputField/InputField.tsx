@@ -23,7 +23,7 @@ function InputField({ inputId, inputType, inputTitle, inputValue, updateValue }:
   const dateChange = useCallback((_: any, date?: Date) => {
     if (date) {
       dateRef.current = date;
-      updateValue(inputId)(date?.toString());
+      updateValue(inputId)(date?.toDateString());
     }
   }, []);
 
