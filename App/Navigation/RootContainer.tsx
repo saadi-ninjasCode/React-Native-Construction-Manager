@@ -1,27 +1,20 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import React, { useMemo } from 'react';
+import React from 'react';
 import { Category, Dashboard, MachineItem } from '../Screen';
-import { useAppSelector } from '../Hooks';
-import { categoryNameList } from '../Selectors';
-import { map } from 'lodash';
+import Sidebar from './Sidebar';
 
-const Drawer = createDrawerNavigator();
+const Drawer = createDrawerNavigator<IPrimaryParams>();
 
 function RootContainer() {
-  const categoryNames = useAppSelector(categoryNameList);
-
-  const categoryFilterName = useMemo(
-    () =>
-      map(categoryNames, name => (
-        <Drawer.Screen key={name.categoryId} name={name.categoryName} component={MachineItem} />
-      )),
-    [categoryNames],
-  );
   return (
-    <Drawer.Navigator>
+    <Drawer.Navigator drawerContent={props => <Sidebar {...props} />}>
       <Drawer.Screen name="Dashboard" component={Dashboard} />
-      <Drawer.Screen name="Manage Category" component={Category} />
-      {categoryFilterName}
+      <Drawer.Screen
+        name="MachineItem"
+        component={MachineItem}
+        options={{ title: 'Machine', drawerItemStyle: { height: 0 } }}
+      />
+      <Drawer.Screen name="ManageCategory" options={{ title: 'Manage Category' }} component={Category} />
     </Drawer.Navigator>
   );
 }
