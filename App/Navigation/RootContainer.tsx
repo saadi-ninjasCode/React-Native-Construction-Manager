@@ -2,6 +2,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import React from 'react';
 import { Category, Dashboard, MachineItem } from '../Screen';
 import Sidebar from './Sidebar';
+import { IPrimaryParams } from '../Types/navigation';
 
 const Drawer = createDrawerNavigator<IPrimaryParams>();
 

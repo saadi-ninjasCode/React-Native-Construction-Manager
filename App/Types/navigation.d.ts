@@ -1,3 +1,6 @@
+import { RouteProp } from '@react-navigation/core';
+import { DrawerNavigationProp } from '@react-navigation/drawer';
+
 declare global {
   namespace ReactNavigation {
     interface RootParamList extends IPrimaryParams {}

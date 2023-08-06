@@ -1,8 +1,6 @@
 import { createDraftSafeSelector } from '@reduxjs/toolkit';
-import { IRootReduxStateRTK } from '../RTK';
-import { map } from 'lodash';
-
-type ISelectorParamState<T> = [(state: IRootReduxStateRTK) => T];
+import { find, isEqual, map } from 'lodash';
+import { ISelectorParamState, ISelectorParam2 } from '../Types/selector';
 
 const categoryNameList = createDraftSafeSelector<ISelectorParamState<ICategory[]>, ICategoryObj[]>(
   state => state.CategorySlice,
@@ -17,6 +15,21 @@ const categoryDataSections = createDraftSafeSelector<ISelectorParamState<ICatego
       fieldsArray: [],
       data: categoryObj.fieldsArray,
     })),
+  {
+    memoizeOptions: {
+      equalityCheck: isEqual,
+    },
+  },
 );
 
-export { categoryNameList, categoryDataSections };
+const categoryDataSelector = createDraftSafeSelector<ISelectorParam2<ICategory[], string>, ICategory | undefined>(
+  [state => state.CategorySlice, (_, categoryId: string) => categoryId],
+  (CategorySlice, categoryId) => find(CategorySlice, { categoryId: categoryId }),
+  {
+    memoizeOptions: {
+      equalityCheck: isEqual,
+    },
+  },
+);
+
+export { categoryNameList, categoryDataSections, categoryDataSelector };

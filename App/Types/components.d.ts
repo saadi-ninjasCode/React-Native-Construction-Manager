@@ -29,3 +29,18 @@ interface ICategoryBox extends ICategory {}
 interface ICategorySectionList extends Omit<ICategory, 'fieldsArray'> {
   data: Readonly<IField[]>;
 }
+
+interface IInputField extends Pick<IField, 'fieldId'> {
+  inputId: string;
+  inputTitle: string;
+  inputValue: string;
+}
+
+interface IMachineItem extends Omit<ICategoryObj, 'fieldsArray'> {
+  itemId: string;
+  itemArray: IInputField[];
+}
+
+interface IMachineItemStore {
+  [key: string]: IMachineItem[];
+}
