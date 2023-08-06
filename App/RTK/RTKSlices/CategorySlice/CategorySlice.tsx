@@ -9,36 +9,8 @@ const CategorySlice = createSlice({
   initialState: CategoryStore,
   reducers: {
     addNewCategory,
-    // addNewCategory: state => {
-    //   state.push({
-    //     categoryId: uniqueId('category_'),
-    //     categoryName: '',
-    //     titleField: '-',
-    //     fieldsArray: [
-    //       {
-    //         fieldId: uniqueId('field_'),
-    //         fieldType: FIELD_TYPES.TEXT,
-    //         fieldValue: '',
-    //       },
-    //     ],
-    //   });
-    // },
-    // refreshToken: (state, { payload }) => {
-    //   state.jwtToken = payload.jwtToken;
-    //   state.userData = payload.userData;
-    // },
   },
-  extraReducers: builder => {
-    // builder.addMatcher(AuthApi.endpoints.userLogin.matchFulfilled, (state, { payload }) => {
-    //   const { jwtToken, ...useData } = payload;
-    //   state.jwtToken = jwtToken;
-    //   state.userData = useData;
-    // });
-    // builder.addMatcher(AuthApi.endpoints.userLogout.matchFulfilled, (state, { payload }) => {
-    //   state.jwtToken = payload.jwtToken;
-    //   state.userData = payload.useData;
-    // });
-  },
+  extraReducers: builder => {},
 });
 
 export default CategorySlice.actions;
