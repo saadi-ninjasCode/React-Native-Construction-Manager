@@ -7,8 +7,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { CategoryBox } from '../../Component';
 import { FIELD_TYPES } from '../../Utility';
 import { styles } from './styles';
+import { useAppDispatch } from '../../Hooks';
+import { CategorySliceAction } from '../../RTK';
 
 function Category() {
+  const dispatch = useAppDispatch();
   const [categoryArray, setCategoryArray] = useState<ICategory[]>([
     {
       categoryId: uniqueId('category_'),
@@ -92,14 +95,16 @@ function Category() {
   }, []);
 
   const addNewCategory = useCallback(() => {
+    dispatch(CategorySliceAction.addNewCategory());
     setCategoryArray(prev => [
       ...prev,
       {
         categoryId: uniqueId('category_'),
         categoryName: '',
+        titleField: '-',
         fieldsArray: [
           {
-            fieldId: uniqueId(`field_`),
+            fieldId: uniqueId('field_'),
             fieldType: FIELD_TYPES.TEXT,
             fieldValue: '',
           },
