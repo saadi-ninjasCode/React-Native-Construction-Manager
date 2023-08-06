@@ -1,14 +1,13 @@
-import { filter, forEach, uniqueId } from 'lodash';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { FlatList, ListRenderItemInfo } from 'react-native';
 import { isTablet } from 'react-native-device-info';
 import { Button } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { CategoryBox } from '../../Component';
-import { FIELD_TYPES } from '../../Utility';
-import { styles } from './styles';
 import { useAppDispatch, useAppSelector } from '../../Hooks';
 import { CategorySliceAction } from '../../RTK';
+import { FIELD_TYPES } from '../../Utility';
+import { styles } from './styles';
 
 function Category() {
   const dispatch = useAppDispatch();
