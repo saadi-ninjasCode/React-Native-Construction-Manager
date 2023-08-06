@@ -1,6 +1,7 @@
-import { filter, forEach, map, uniqueId } from 'lodash';
-import React, { useCallback, useMemo, useState } from 'react';
-import { View } from 'react-native';
+import { filter, forEach, uniqueId } from 'lodash';
+import React, { useCallback, useState } from 'react';
+import { FlatList, ListRenderItemInfo } from 'react-native';
+import { isTablet } from 'react-native-device-info';
 import { Button } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { CategoryBox } from '../../Component';
@@ -127,12 +128,13 @@ function Category() {
     });
   }, []);
 
-  const renderCategory = useMemo(
-    () =>
-      map(categoryArray, category => (
+  const keyExtracted = useCallback((item: ICategory) => item.categoryId, []);
+  const renderItem = useCallback(
+    ({ item }: ListRenderItemInfo<ICategory>) => {
+      return (
         <CategoryBox
-          key={category.categoryId}
-          {...category}
+          {...item}
+          key={item.categoryId}
           removeCategory={removeCategory}
           addCategoryField={addCategoryField}
           updateCategoryName={updateCategoryName}
@@ -140,21 +142,28 @@ function Category() {
           setCategoryTitleField={setCategoryTitleField}
           updateCategoryFieldValue={updateCategoryFieldValue}
         />
-      )),
+      );
+    },
     [
-      categoryArray,
-      removeCategory,
       addCategoryField,
+      removeCategory,
       removeCategoryField,
-      updateCategoryName,
       setCategoryTitleField,
       updateCategoryFieldValue,
+      updateCategoryName,
     ],
   );
 
   return (
     <SafeAreaView style={styles.flex}>
-      <View style={[styles.flexGrow, styles.boxContainer]}>{renderCategory}</View>
+      <FlatList
+        style={[styles.flexGrow]}
+        numColumns={isTablet() ? 2 : 1}
+        contentContainerStyle={[styles.flexGrow, styles.boxContainer]}
+        data={categoryArray}
+        keyExtractor={keyExtracted}
+        renderItem={renderItem}
+      />
       <Button style={styles.addBtn} mode="contained" onPress={addNewCategory}>
         Add Category
       </Button>

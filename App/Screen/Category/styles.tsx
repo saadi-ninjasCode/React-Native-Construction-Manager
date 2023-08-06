@@ -12,9 +12,9 @@ const styles = StyleSheet.create({
     borderRadius: 0,
   },
   boxContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
+    // flexDirection: 'row',
+    // flexWrap: 'wrap',
+    alignItems: 'center',
     ...Alignment.MBxLarge,
   },
 });
