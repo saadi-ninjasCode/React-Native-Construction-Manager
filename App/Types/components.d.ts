@@ -47,8 +47,11 @@ interface IInputValue extends IInputField {
 }
 interface IMachineItem extends Omit<ICategoryObj, 'fieldsArray'> {
   itemId: string;
-
   itemArray: IInputField[];
+}
+
+interface ISubCategoryBox extends IMachineItem {
+  titleField: string;
 }
 
 interface IMachineItemStore {

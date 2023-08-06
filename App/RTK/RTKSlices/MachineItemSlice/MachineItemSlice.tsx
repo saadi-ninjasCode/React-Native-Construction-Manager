@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { MachineItemStore } from './MachineItemStore';
-import { addMachineItem, removeMachineItem } from './MachineItemReducer';
+import { addMachineItem, removeMachineItem, updateMachineItemInputValue } from './MachineItemReducer';
 
 const MachineItemSlice = createSlice({
   name: 'MachineItemSlice',
@@ -9,12 +9,7 @@ const MachineItemSlice = createSlice({
   reducers: {
     addMachineItem,
     removeMachineItem,
-    // updateCategoryName,
-    // removeCategory,
-    // setCategoryTitleField,
-    // addCategoryField,
-    // updateCategoryFieldValue,
-    // removeCategoryField,
+    updateMachineItemInputValue,
   },
 });
 

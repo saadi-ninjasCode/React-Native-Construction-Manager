@@ -29,9 +29,12 @@ function MachineItem() {
   }, [categoryName]);
 
   const keyExtracted = useCallback((item: IMachineItem) => item.itemId, []);
-  const renderItem = useCallback(({ item }: ListRenderItemInfo<IMachineItem>) => {
-    return <SubCategoryBox {...item} />;
-  }, []);
+  const renderItem = useCallback(
+    ({ item }: ListRenderItemInfo<IMachineItem>) => {
+      return <SubCategoryBox titleField={categoryData?.titleField ?? ''} {...item} />;
+    },
+    [categoryData?.titleField],
+  );
 
   const emptyView = useMemo(
     () => (

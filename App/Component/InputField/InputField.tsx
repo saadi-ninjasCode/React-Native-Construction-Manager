@@ -1,13 +1,31 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import DateTimePicker from '@react-native-community/datetimepicker';
-import React, { useMemo, useRef } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { View } from 'react-native';
 import { Switch, Text, TextInput } from 'react-native-paper';
 import { Alignment } from '../../Theme';
 import { FIELD_TYPES } from '../../Utility';
 import { styles } from './styles';
 
-function InputField({ fieldId, inputId, inputType, inputTitle, inputValue, updateValue }: IInputValue) {
+function InputField({ inputId, inputType, inputTitle, inputValue, updateValue }: IInputValue) {
   const dateRef = useRef<Date>(new Date());
+
+  useEffect(() => {
+    if (inputType === FIELD_TYPES.DATE) {
+      if (inputValue) {
+        dateRef.current = new Date(inputValue);
+      } else {
+        dateChange('', new Date());
+      }
+    }
+  }, []);
+
+  const dateChange = useCallback((_: any, date?: Date) => {
+    if (date) {
+      dateRef.current = date;
+      updateValue(inputId)(date?.toString());
+    }
+  }, []);
 
   const fieldView = useMemo(() => {
     switch (inputType) {
@@ -22,15 +40,14 @@ function InputField({ fieldId, inputId, inputType, inputTitle, inputValue, updat
             value={inputValue}
             style={styles.flexGrow}
             keyboardType={FIELD_TYPES.NUMBER ? 'number-pad' : 'ascii-capable'}
-            // defaultValue={categoryTitleName}
-            // onChangeText={updateCategoryTitle}
+            onChangeText={updateValue(inputId)}
           />
         );
 
       case FIELD_TYPES.CHECKBOX:
         return (
           <>
-            <Switch key={inputId} value={Boolean(inputValue)} />
+            <Switch key={inputId} value={Boolean(inputValue)} onValueChange={updateValue(inputId)} />
             <Text style={Alignment.MLmedium}>{inputTitle}</Text>
           </>
         );
@@ -38,7 +55,7 @@ function InputField({ fieldId, inputId, inputType, inputTitle, inputValue, updat
         return (
           <View key={inputId} style={Alignment.MVxSmall}>
             <Text variant="bodyMedium" style={Alignment.MLxSmall}>
-              {'Manufac Date'}
+              {inputTitle}
             </Text>
             <DateTimePicker
               testID="dateTimePicker"
@@ -49,14 +66,14 @@ function InputField({ fieldId, inputId, inputType, inputTitle, inputValue, updat
               is24Hour={true}
               display="calendar"
               style={{ marginLeft: -5 }}
-              // onChange={androidOnChange}
+              onChange={dateChange}
             />
           </View>
         );
       default:
         break;
     }
-  }, [inputId, inputTitle, inputType, inputValue]);
+  }, [dateChange, inputId, inputTitle, inputType, inputValue, updateValue]);
 
   return <View style={[styles.row, Alignment.MTxSmall]}>{fieldView}</View>;
 }

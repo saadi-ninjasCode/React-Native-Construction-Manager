@@ -1,12 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import { find, map } from 'lodash';
 import React, { useCallback, useMemo } from 'react';
 import { Button, Card, useTheme } from 'react-native-paper';
 import { useAppDispatch } from '../../Hooks';
 import { MachineItemSliceAction } from '../../RTK';
-import { styles } from './styles';
-import { map } from 'lodash';
 import { InputField } from '../InputField';
+import { styles } from './styles';
 
-function SubCategoryBox({ categoryId, itemId, itemArray }: IMachineItem) {
+function SubCategoryBox({ categoryId, titleField, itemId, itemArray }: ISubCategoryBox) {
   const dispatch = useAppDispatch();
   const { colors } = useTheme();
 
@@ -15,10 +16,10 @@ function SubCategoryBox({ categoryId, itemId, itemArray }: IMachineItem) {
   }, [dispatch, categoryId, itemId]);
 
   const updateInputValue = useCallback(
-    (categoryId: string, itemId: string, inputId: string) => (value: string) => {
-      // dispatch(CategorySliceAction.updateCategoryFieldValue({ categoryId, fieldId, value }));
+    (inputId: string) => (value: string) => {
+      dispatch(MachineItemSliceAction.updateMachineItemInputValue({ categoryId, itemId, inputId, value }));
     },
-    [categoryId],
+    [categoryId, itemId],
   );
 
   const itemFieldArray = useMemo(
@@ -26,9 +27,14 @@ function SubCategoryBox({ categoryId, itemId, itemArray }: IMachineItem) {
     [itemArray, updateInputValue],
   );
 
+  const ItemTitle = useMemo(
+    () => find(itemArray, item => item.fieldId === titleField)?.inputValue,
+    [itemArray, titleField],
+  );
+
   return (
     <Card disabled style={styles.card}>
-      <Card.Title title={'Unnamed Field'} titleVariant="titleMedium" />
+      <Card.Title title={ItemTitle || 'Unnamed Field'} titleVariant="titleMedium" />
       <Card.Content>{itemFieldArray}</Card.Content>
       <Card.Actions style={styles.centerAlign}>
         <Button

@@ -1,5 +1,5 @@
 import { CaseReducer, PayloadAction } from '@reduxjs/toolkit';
-import { filter, get, map, set, uniqueId } from 'lodash';
+import { filter, find, get, map, set, uniqueId } from 'lodash';
 
 const addMachineItem: CaseReducer<
   IMachineItemStore,
@@ -30,4 +30,31 @@ const removeMachineItem: CaseReducer<IMachineItemStore, PayloadAction<{ category
   set(state, categoryId, newObj);
 };
 
-export { addMachineItem, removeMachineItem };
+const updateMachineItemInputValue: CaseReducer<
+  IMachineItemStore,
+  PayloadAction<{ categoryId: string; itemId: string; inputId: string; value: string }>
+> = (state, { payload: { categoryId, itemId, inputId, value } }) => {
+  const categoryObj = get(state, categoryId);
+  const itemObj = find(categoryObj, { itemId });
+  const fieldObj = find(itemObj?.itemArray, { inputId }) ?? {};
+  set(fieldObj, 'inputValue', value);
+
+  // const newArr: ICategory[] = [];
+
+  // forEach(state, categoryObj => {
+  //   if (categoryObj.categoryId === categoryId) {
+  //     const newFieldArr: IField[] = [];
+  //     forEach(categoryObj?.fieldsArray, fieldObj => {
+  //       if (fieldObj.fieldId === fieldId) {
+  //         fieldObj.fieldValue = value;
+  //       }
+  //       newFieldArr.push(fieldObj);
+  //     });
+  //     categoryObj.fieldsArray = newFieldArr;
+  //   }
+  //   newArr.push(categoryObj);
+  // });
+  // state = newArr;
+};
+
+export { addMachineItem, removeMachineItem, updateMachineItemInputValue };
