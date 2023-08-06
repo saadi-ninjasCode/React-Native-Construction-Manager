@@ -16,6 +16,7 @@ function FieldValue({ fieldId, fieldType, fieldValue, removeField, updateValue }
       <TextInput
         style={styles.flexGrow}
         dense
+        defaultValue={fieldValue}
         mode="outlined"
         label="Field"
         value={fieldValue}

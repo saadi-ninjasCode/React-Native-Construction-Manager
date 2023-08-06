@@ -73,7 +73,13 @@ function CategoryBox({ categoryId, categoryName, titleField, fieldsArray }: ICat
     <Card disabled style={styles.card}>
       <Card.Title title={categoryName || 'Category Name'} titleVariant="titleLarge" />
       <Card.Content>
-        <TextInput dense mode="outlined" label="Category name" onChangeText={updateCategoryTitle} />
+        <TextInput
+          dense
+          mode="outlined"
+          label="Category name"
+          defaultValue={categoryTitleName}
+          onChangeText={updateCategoryTitle}
+        />
         {boxArray}
         <Dropdown
           addFieldView

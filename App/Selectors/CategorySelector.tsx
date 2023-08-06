@@ -9,4 +9,14 @@ const categoryNameList = createDraftSafeSelector<ISelectorParamState<ICategory[]
   CategorySlice => map(CategorySlice, ({ categoryId, categoryName }) => ({ categoryId, categoryName })),
 );
 
-export { categoryNameList };
+const categoryDataSections = createDraftSafeSelector<ISelectorParamState<ICategory[]>, ICategorySectionList[]>(
+  state => state.CategorySlice,
+  CategorySlice =>
+    map(CategorySlice, categoryObj => ({
+      ...categoryObj,
+      fieldsArray: [],
+      data: categoryObj.fieldsArray,
+    })),
+);
+
+export { categoryNameList, categoryDataSections };

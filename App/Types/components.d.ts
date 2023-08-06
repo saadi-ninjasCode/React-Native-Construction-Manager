@@ -25,3 +25,7 @@ interface ICategory extends ICategoryObj {
 }
 
 interface ICategoryBox extends ICategory {}
+
+interface ICategorySectionList extends Omit<ICategory, 'fieldsArray'> {
+  data: Readonly<IField[]>;
+}
